@@ -1,0 +1,30 @@
+<div>
+
+    <h4><strong>Play List Name:</strong> Songs for fucking</h4>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>song title</th>
+            <th>author</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#songsArray}}
+        <tr>
+            <td>{{@index}}</td>
+            <td>{{songName}}</td>
+            <td>{{authorName}}</td>
+            <td>
+                <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </td>
+        </tr>
+        {{/songsArray}}
+        </tbody>
+    </table>
+
+</div>

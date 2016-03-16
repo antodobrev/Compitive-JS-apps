@@ -9,7 +9,7 @@
     height: 200px;
 }
 
-#login, #register {
+#login, #register, #loginContainer, #registerContainer {
     width: 50%;
     margin: 100px auto;
 }

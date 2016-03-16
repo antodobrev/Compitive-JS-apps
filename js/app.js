@@ -20,6 +20,21 @@ var app = app || {};
             songController.loadSongPage(selector);
         });
 
+        // testing UI
+        this.get('#/login', function () {
+            $('#header ul').hide();
+            $.get('templates/login.html', function (templ) {
+                $(selector).html(templ);
+            })
+        });
+
+        this.get('#/register', function () {
+            $('#header ul').hide();
+            $.get('templates/register.html', function (templ) {
+                $(selector).html(templ);
+            })
+        });
+
     });
 
     app.router.run('#/');

@@ -5,6 +5,11 @@
 }
 
 .song-image {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
+}
+
+#login, #register {
+    width: 50%;
+    margin: 100px auto;
 }

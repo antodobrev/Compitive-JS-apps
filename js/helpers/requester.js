@@ -1,27 +1,34 @@
 var app = app || {};
 
-app.requester = (function () {
-    function Requester(appId, appSecret) {
-        this.appId = appId;
-        this.appSecret = appSecret;
-        this.baseUrl = 'https://baas.kinvey.com/';
+app.requester = (function(){
+    function Requester(){
     }
 
-    Requester.prototype.get = function(url, useSession) {
-        return this.makeRequest('GET', url, null, useSession);
+    Requester.prototype.post = function(url, data, headers) {
+        return makeRequest("POST", url, data, headers);
     };
 
-    Requester.prototype.post = function(url, data, useSession) {
-        return this.makeRequest('POST', url, data, useSession);
+    Requester.prototype.get = function(url, headers) {
+        return makeRequest("GET", url, null, headers);
     };
 
-    Requester.prototype.makeRequest = function(method, url, data, useSession) {
+    Requester.prototype.put = function(url, data, headers) {
+        return makeRequest("PUT", url, data, headers);
+    };
+
+    Requester.prototype.delete = function(url, headers) {
+        return makeRequest("DELETE", url, null, headers);
+    };
+
+    function makeRequest(method, url, data, headers) {
+        data = data || null;
         var token,
             defer = Q.defer(),
-            _this = this,
             options = {
                 method: method,
                 url: url,
+                headers: headers,
+                data: JSON.stringify(data),
                 success: function (data) {
                     defer.resolve(data);
                 },
@@ -30,31 +37,14 @@ app.requester = (function () {
                 }
             };
 
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!useSession) {
-                    token = _this.appId + ':' + _this.appSecret;
-                    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(token));
-                } else {
-                    token = sessionStorage['sessionAuth'];
-                    xhr.setRequestHeader('Authorization', 'Kinvey ' + token);
-                }
-                if(data) {
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    settings.data = JSON.stringify(data);
-                    return true;
-                }
-            }
-        });
-
         $.ajax(options);
 
         return defer.promise;
-    };
+    }
 
     return {
-        config: function(appId, appSecret) {
-            return new Requester(appId, appSecret);
+        load: function(){
+            return new Requester();
         }
-    };
-}());
+    }
+})();

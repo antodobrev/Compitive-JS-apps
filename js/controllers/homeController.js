@@ -1,14 +1,24 @@
 var app = app || {};
 
 app.homeController = (function() {
-    function HomeController(viewBag) {
-        this._viewBag = viewBag;
+    function HomeController(viewbag) {
+        this._viewbag = viewbag;
     }
 
+    HomeController.prototype.loadHeader = function(selector){
+        this._viewbag.showHeader(selector);
+    };
+
+    HomeController.prototype.loadHeaderLogged = function(selector){
+        this._viewbag.showHeaderLogged(selector);
+    };
+
     HomeController.prototype.loadHomePage = function (selector) {
-        $.get('templates/home.html', function (templ) {
-            $(selector).html(templ);
-        })
+        this._viewbag.showHomePage(selector);
+    };
+
+    HomeController.prototype.loadHomePageLogged = function (selector) {
+        this._viewbag.showHomePageLogged(selector);
     };
 
     return {

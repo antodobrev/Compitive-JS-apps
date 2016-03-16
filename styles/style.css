@@ -1,3 +1,10 @@
 #wrapper {
-    color: #00AD2B;
+    width: 800px;
+    height: 600px;
+    margin: auto;
+}
+
+.song-image {
+    width: 100px;
+    height: 100px;
 }

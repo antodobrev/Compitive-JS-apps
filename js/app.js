@@ -4,7 +4,7 @@ var app = app || {};
 
     app.router = Sammy(function () {
 
-        var selector = '#wrapper';
+        var selector = '#container';
         var homeView = app.homeViews.load();
         var songView = app.songViews.load();
         

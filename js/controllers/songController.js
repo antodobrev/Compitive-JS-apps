@@ -49,6 +49,20 @@ app.songController = (function () {
 
     };
 
+    SongController.prototype.getSong = function(id) {
+        var _this = this;
+        this._model.getSong(id)
+            .then(function(success) {
+                $.sammy (function() {
+                    this.trigger('song-gotten', { response: success } );
+                });
+            }).done();
+    };
+
+    SongController.prototype.loadSongPage = function (selector, data) {
+        this._viewBag.showSongPage(selector, data);
+    };
+
 
     return {
         load: function (model, viewBag) {

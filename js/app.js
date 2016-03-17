@@ -27,7 +27,7 @@ var app = app || {};
         var homeController = app.homeController.load(homeView,credentials);
         var userController = app.userController.load(userModel,userView,credentials);
         var playlistController = app.playlistController.load(playlistModel,playlistView,credentials);
-        var songController = app.songController.load(songModel,songView);
+        var songController = app.songController.load(songModel,songView,credentials);
 
         this.before({except: {path: '#\/(register|login)?'}},function(){
             var sessionId = sessionStorage.getItem('sessionId');
@@ -108,6 +108,14 @@ var app = app || {};
 
         this.bind('deletePlaylist',function(e,data){
             playlistController.deletePlaylist(data);
+        });
+
+        this.bind('song-gotten', function(e, data) {
+            songController.loadSongPage(selector, data);
+        });
+
+        this.bind('initiated-song', function(e, data) {
+            songController.getSong(data.id);
         });
 
     });

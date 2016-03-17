@@ -8,20 +8,15 @@ app.homeViews = (function() {
         })
     }
 
-    function showHeaderLogged(selector) {
+    function showHeaderLogged(selector,data) {
         $.get('templates/headerLogged.html', function (templ) {
-            $(selector).html(templ);
+            var result = Mustache.render(templ,data);
+            $(selector).html(result);
         })
     }
 
     function showHomePage(selector) {
         $.get('templates/home.html', function (templ) {
-            $(selector).html(templ);
-        })
-    }
-
-    function showHomePageLogged(selector) {
-        $.get('templates/homeLogged.html', function (templ) {
             $(selector).html(templ);
         })
     }
@@ -32,7 +27,6 @@ app.homeViews = (function() {
                 showHeader: showHeader,
                 showHeaderLogged: showHeaderLogged,
                 showHomePage: showHomePage,
-                showHomePageLogged: showHomePageLogged
             }
         }
     }

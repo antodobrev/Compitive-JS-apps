@@ -2,15 +2,17 @@
     <div class="col-sm-6 col-md-4">
         <img src="images/defaultSongImage.png" alt="songImage" class="img-thumbnail song-image">
     </div>
+    {{#songs}}
     <div class="col-sm-6 col-md-4">
-        <h3 id="song-name">{{songName}}</h3>
+        <h3 id="song-name">{{title}}</h3>
         <p>
-            <strong >Author Name: </strong> <span id="author-name">{{authorName}}</span>
+            <strong >Author Name: </strong> <span id="author-name">{{author}}</span>
 
 
         </p>
-        <button class="btn btn-success col-md-8">play</button>
+        <button type="button" class="btn btn-success col-md-8">play</button>
     </div>
+    {{/songs}}
     <div class="col-sm-6 col-md-4">
         <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div>

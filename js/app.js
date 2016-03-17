@@ -10,19 +10,24 @@ var app = app || {};
 
         var header = "#header";
         var selector = '#container';
+        var songContainer = "#songContainer";
 
         var requester = app.requester.load();
 
         var credentials = app.credentials.load(appId,appSecret);
         var userModel = app.user.load(baseUrl,appId,credentials,requester);
+        var playlistModel = app.playlistModel.load(baseUrl,appId,credentials,requester);
+        var songModel = app.songModel.load(baseUrl,appId,credentials,requester);
 
         var homeView = app.homeViews.load();
         var userView = app.userViews.load();
         var songView = app.songViews.load();
+        var playlistView = app.playlistsViews.load();
         
-        var homeController = app.homeController.load(homeView);
+        var homeController = app.homeController.load(homeView,credentials);
         var userController = app.userController.load(userModel,userView,credentials);
-        var songController = app.songController.load(songView);
+        var playlistController = app.playlistController.load(playlistModel,playlistView,credentials);
+        var songController = app.songController.load(songModel,songView);
 
         this.before({except: {path: '#\/(register|login)?'}},function(){
             var sessionId = sessionStorage.getItem('sessionId');
@@ -37,24 +42,43 @@ var app = app || {};
             homeController.loadHomePage(selector);
         });
 
-        this.get('#/song', function () {
+        this.get('#/songs', function () {
+            homeController.loadHeaderLogged(header);
             songController.loadSongPage(selector);
         });
 
         this.get('#/home', function () {
-            homeController.loadHomePageLogged(selector);
+            homeController.loadHeaderLogged(header);
+            songController.loadHomePageSongs(selector);
+        });
+
+        this.get('#/playlists', function () {
+            homeController.loadHeaderLogged(header);
+            playlistController.loadPlaylistsPage(selector);
+        });
+
+        this.get('#/playlist', function () {
+            homeController.loadHeaderLogged(header);
         });
 
         this.get('#/login', function () {
+            homeController.loadHeader(header);
             userController.loadLoginPage(selector);
         });
 
         this.get('#/logout', function () {
             userController.logout();
+            homeController.loadHeader(header);
         });
 
         this.get('#/register', function () {
+            homeController.loadHeader(header);
             userController.loadRegisterPage(selector);
+        });
+
+        this.get('#/myPlaylists', function () {
+            homeController.loadHeaderLogged(header);
+            playlistController.loadMyPlaylists(selector);
         });
 
         this.bind('redirectUrl',function(e,data){
@@ -69,12 +93,21 @@ var app = app || {};
             userController.register(data);
         });
 
-        this.bind('loadLoggedHeader',function(e){
-            homeController.loadHeaderLogged(header);
+        this.bind('loadPlaylist',function(e,data){
+            playlistController.getPlaylist(selector,data.id);
         });
 
-        this.bind('loadHeader',function(e){
-            homeController.loadHeader(header);
+        this.bind('createPlaylistSongs',function(e){
+            playlistController.loadCreatePlaylist(selector);
+            songController.createPlaylistSongs(songContainer);
+        });
+
+        this.bind('addPlaylist',function(e,data){
+            playlistController.addPlaylist(data);
+        });
+
+        this.bind('deletePlaylist',function(e,data){
+            playlistController.deletePlaylist(data);
         });
 
     });

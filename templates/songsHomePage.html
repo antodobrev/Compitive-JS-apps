@@ -1,0 +1,23 @@
+<div>
+    <h4>Recently Played</h4>
+
+    <div class="row">
+        {{#songs}}
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="images/defaultSongImage.png" alt="...">
+
+                <div class="caption">
+                    <h3>{{title}}</h3>
+
+                    <p><strong>Author Name: </strong> <span class="author-name">{{author}}</span></p>
+
+                    <p><a href="#" class="btn btn-primary" role="button">Listen</a></p>
+                </div>
+            </div>
+        </div>
+        {{/songs}}
+    </div>
+
+
+</div>

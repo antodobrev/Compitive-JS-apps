@@ -24,7 +24,6 @@ app.userController = (function () {
                 _this.credentials.setUsername(success.username);
                 poppy.pop("success","Login Successful","You have successfully logged in!");
                 $.sammy(function () {
-                    this.trigger('loadLoggedHeader');
                     this.trigger('redirectUrl', {url: '#/home'});
                 })
             },function(error){
@@ -39,7 +38,6 @@ app.userController = (function () {
                 _this.credentials.clear();
                 poppy.pop("success","Success","You have successfully logged out!");
                 $.sammy(function () {
-                    this.trigger('loadHeader');
                     this.trigger('redirectUrl', {url: '#/'});
                 })
             })
@@ -50,7 +48,7 @@ app.userController = (function () {
             .then(function(success){
                 poppy.pop("success","Success","You registered successfully!");
                 $.sammy(function(){
-                    this.trigger('redirectUrl',{url:'#/'});
+                    this.trigger('redirectUrl',{url:'#/login'});
                 })
             },function(error){
                 poppy.pop("error","Error","Username already taken!");

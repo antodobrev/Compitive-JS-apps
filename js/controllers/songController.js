@@ -6,7 +6,7 @@ app.songController = (function () {
         this._model = model;
     }
 
-    SongController.prototype.loadSongPage = function (selector) {
+    SongController.prototype.loadSongPage2 = function (selector) {
         var _this = this;
         this._model.getAllSongs()
             .then(function (success) {
